@@ -2,31 +2,34 @@
 
 {% block content %}
 
-    <h1>Lista de Tarefas</h1>
+<h1>Lista de Tarefas</h1>
 
-    <table class="table">
+<table class="table">
     <thead>
         <tr>
-            <th scope="col">número</th>   
+            <th scope="col">número</th>
             <th scope="col">Título</th>
             <th scope="col">descrição</th>
             <th scope="col">Situação</th>
             <th scope="col">Criado em</th>
             <th scope="col">Expira em</th>
-            <th scope="col">Ações</th>
         </tr>
     </thead>
     <tbody>
         {% for task in tasks %}
         <tr>
-        <th scope="row">{{task.pk}}</th>
-        <td>{{task.title}}</td>
-        <td>{{task.description}}</td>
-        <td>{{task.status}}</td>
-        <td>{{task.created_at}}</td>
-        <td>{{task.due_date}}</td>
+            <th scope="row">{{task.pk}}</th>
+            <td>{{task.title}}</td>
+            <td>{{task.description}}</td>
+            <td>{{task.status}}</td>
+            <td>{{task.created_at}}</td>
+            <td>{{task.due_date}}</td>
+            <td>
+                <a href="{% url "task-edit" pk=task.pk %}" class="btn btn-primary btn-sm">Editar</a>
+                <a href="{% url "task-delete" pk=task.pk %}" class="btn btn-danger btn-sm">Excluir</a>
+            </td>
         </tr>
         {% endfor %}
     </tbody>
-    </table>
-{% endblock  %}
+</table>
+{% endblock %}

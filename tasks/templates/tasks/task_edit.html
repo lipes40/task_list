@@ -1,0 +1,17 @@
+{% extends "tasks/base.html" %}
+
+{% block content %}
+
+    <h1>Editar tarefa</h1>
+
+    <form method="post" action="" class="form">
+        {% csrf_token %}
+        {{form.as_p}}
+
+        <button type="submit" class="btn btn-success">Salvar</button>
+    </form>
+    <a href="{% url "task-list" %}">
+    <button type="button" class="btn btn-danger">Voltar</button>
+    </a>
+
+{% endblock  %}
