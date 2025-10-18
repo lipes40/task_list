@@ -1,35 +1,42 @@
-{% extends "tasks/base.html" %}
+{% extends 'tasks/base.html' %}
 
 {% block content %}
+  <h1>Lista de Tarefas</h1>
 
-<h1>Lista de Tarefas</h1>
-
-<table class="table">
+  <table class="table">
     <thead>
-        <tr>
-            <th scope="col">número</th>
-            <th scope="col">Título</th>
-            <th scope="col">descrição</th>
-            <th scope="col">Situação</th>
-            <th scope="col">Criado em</th>
-            <th scope="col">Expira em</th>
-        </tr>
+      <tr>
+        <th scope="col">Número</th>
+        <th scope="col">Título</th>
+        <th scope="col">descrição</th>
+        <th scope="col">Situação</th>
+        <th scope="col">Criado em</th>
+        <th scope="col">Expira em</th>
+      </tr>
     </thead>
     <tbody>
-        {% for task in tasks %}
+      {% for task in tasks %}
         <tr>
-            <th scope="row">{{task.pk}}</th>
-            <td>{{task.title}}</td>
-            <td>{{task.description}}</td>
-            <td>{{task.status}}</td>
-            <td>{{task.created_at}}</td>
-            <td>{{task.due_date}}</td>
-            <td>
-                <a href="{% url "task-edit" pk=task.pk %}" class="btn btn-primary btn-sm">Editar</a>
-                <a href="{% url "task-delete" pk=task.pk %}" class="btn btn-danger btn-sm">Excluir</a>
-            </td>
+          <th scope="row">{{ task.numero }}</th>
+          <td>{{ task.title }}</td>
+          <td>{{ task.description }}</td>
+          <td>
+            {% if task.status == 'P' %}
+              <span class="badge bg-warning" title="Pendente">Pendente</span>
+            {% elif task.status == 'A' %}
+            <span class="badge bg-info" title="Em andamento">Em andamento</span>
+            {% else %}
+            <span class="badge bg-success" title="Concluido">Concluido</span>
+            {% endif %}
+          </td>
+          <td>{{ task.created_at }}</td>
+          <td>{{ task.due_date }}</td>
+          <td>
+            <a href="{% url 'task-edit' pk=task.pk %}" class="btn btn-primary btn-sm">Editar</a>
+            <a href="{% url 'task-delete' pk=task.pk %}" class="btn btn-danger btn-sm">Excluir</a>
+          </td>
         </tr>
-        {% endfor %}
+      {% endfor %}
     </tbody>
-</table>
+  </table>
 {% endblock %}
